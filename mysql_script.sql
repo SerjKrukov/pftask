@@ -13,6 +13,11 @@ CREATE TABLE testdb.user_roles (
     KEY fk_username_idx (username),
     CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES testdb.users (username));
 
+CREATE TABLE testdb.holiday (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    date varchar(255),
+    name varchar(255),
+    PRIMARY KEY (id));
 
 INSERT INTO testdb.users(username,password,enabled) VALUES ('user','user', true);
 INSERT INTO testdb.users(username,password,enabled) VALUES ('admin','admin', true);
