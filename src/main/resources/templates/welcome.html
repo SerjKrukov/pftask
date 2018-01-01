@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Welcome Security with Spring Boot!</title>
+    <meta id="_csrf" th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<body>
+    <h1 style="color:blue"> Hello! This is Welcome Page!</h1>
+
+    <a style="color:blue" th:href="@{/}">Go to Home Page!</a>
+    <br/>
+
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+    <!--<form style="width: 40%">-->
+        <!--<fieldset>-->
+            <!--<legend>Choose dates to calculate holidays count using ajax</legend>-->
+            <!--&lt;!&ndash;<label>Choose dates to calculate holydays count</label><br/>&ndash;&gt;-->
+            <!--<label for="start">Enter start date</label><br/>-->
+            <!--<input type="date" ></input><br/>-->
+            <!--<label for="end">Enter stop date</label><br/>-->
+            <!--<input type="date" id="end"></input><br/>-->
+            <!---->
+        <!--</fieldset>-->
+    <!--</form >-->
+    <form th:action="@{/welcome}" method="post" th:object="${ajaxRequest}" style="width: 40%">
+        <fieldset>
+            <legend>Choose dates to calculate holidays count</legend>
+            <table>
+                <tr>
+                    <td>First date:</td>
+                    <td><input type="date" th:field="*{firstDate}" id="start"/></td>
+                    <td th:if="${#fields.hasErrors('firstDate')}" th:errors="*{firstDate}" >Name Error</td>
+                </tr>
+                <tr>
+                    <td>Second Date:</td>
+                    <td><input type="date" th:field="*{secondDate}"  id="end"/></td>
+                    <td th:if="${#fields.hasErrors('secondDate')}" th:errors="*{secondDate}">Age Error</td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Submit</button></td>
+                    <td><input type="button" value="Use ajax" id="calc"></input></td>
+                </tr>
+            </table>
+        </fieldset>
+
+    </form>
+    <div th:if="${count} != null">
+        <p> holidays count is  <span th:text="${count}"></span></p>
+    </div>
+    <div id="feedback"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
